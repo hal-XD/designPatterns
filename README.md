@@ -1,0 +1,2 @@
+# designPatterns
+デザインパターンの練習
