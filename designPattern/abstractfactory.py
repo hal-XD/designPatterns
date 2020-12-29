@@ -2,47 +2,70 @@
 
 # abstract factory
 def abFactory(factory):
-    return factory.createItem(5)
+    item1 = factory.createItem("sushi",100)
+    item2 = factory.createItem("ra-men",50)
+    tenant = factory.Tenant("sugoi mise") 
+    tenant.setItems(item1)
+    tenant.setItems(item2)
+    return tenant
 
 # factoryA
 class FactoryA:
 
     @classmethod
-    def createItem(cls, item_num):
-        return cls.Item(item_num)
+    def createItem(cls, name, price):
+        return cls.Item(name, price)
+
+    @classmethod
+    def createTenant(cls, tenantName):
+        return cls.tenant(tenantName)
 
     # ItemA
     class Item:
 
-        def __init__(self, item_num):
-            self.num = item_num
-            self.price = 100
+        def __init__(self, name, price):
+            self.itemName = name
+            self.price = price
+
+        def getItemName(self):
+            return self.itemName
+        
+        def getPrice(self):
+            return self.price 
+    
+    class Tenant:
+
+        def __init__(self, tenant_name):
+            self.tenantName = tenant_name
+            self.items = {}
             self.profit = 0
         
-        def sell(self):
-            self.num -= 1
-            if self.num < 0: return
-            self.profit += self.price
+        def setItems(self, item):
+            self.items[item.getItemName()] = item.getPrice() 
+
+        def sell(self, itemName, num):
+            value = self.items[itemName]
+            self.profit += value * num
 
 # factoryB
 class FactoryB(FactoryA):
 
-    # ItemB
+    # ItemB (tokubai)
     class Item:
 
-        def __init__(self, item_num):
-            self.num = item_num
-            self.price = 50
-            self.profit = -50 * item_num
+        def __init__(self, name, price):
+            self.itemName = name
+            self.price = int(price * 0.8)
+
+        def getItemName(self):
+            return self.itemName
         
-        def sell(self):
-            self.num -= 1
-            if self.num < 0: return
-            self.profit += self.price + 25
+        def getPrice(self):
+            return self.price 
 
 def main():
-    itemA = abFactory(FactoryA)
-    itemB = abFactory(FactoryB)
+    tenantA = abFactory(FactoryA)
+    tenantB_tokubai = abFactory(FactoryB)
 
 if __name__ == "__main__":
     main()
