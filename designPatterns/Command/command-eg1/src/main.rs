@@ -1,5 +1,5 @@
 trait Command<T> {
-    fn execute(&self, &mut T)
+    fn execute(&self, c:&mut T);
 }
 
 struct Invoker<'a, Cmd, T: 'a> {
