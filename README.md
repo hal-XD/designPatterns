@@ -4,8 +4,14 @@
 ## デザインパターン一覧
 
 ### GoF
-- Abstract Factory Pattern
-- Builder Pattern
+
+振る舞いに関するパターン
+- Command
+
+- Abstract Factory
+- Builder
+- Command
+- State
 
 ### その他
 
